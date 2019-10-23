@@ -33,7 +33,7 @@ $result = $mysql -> query ("SELECT * FROM `users` WHERE `login` = '$loginINPUT' 
 $user = $result -> fetch_assoc();
 
 if(count($user) != 0){
- echo "welcome"; 
+header("Location: main.php");
 } else{
     $error_login = 'Неверный логин';
     $error_password = 'Неверный пароль';
