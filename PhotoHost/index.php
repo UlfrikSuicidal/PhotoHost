@@ -8,7 +8,7 @@ $password =htmlspecialchars($_POST['password']);
 #ошибки
     $error_login = "";
     $error_password = "";
-
+    $error = false;
 $_SESSION['login'] = $login;
 $_SESSION['password'] = $password;
 
