@@ -5,35 +5,39 @@ setcookie('user' , $user['name'] , time() + 3600*24 ,"/");
 $login =htmlspecialchars($_POST['login']);
 $password =htmlspecialchars($_POST['password']);
 
+
+
+
 #ошибки
     $error_login = "";
     $error_password = "";
-    $error = false;
-$_SESSION['login'] = $login;
-$_SESSION['password'] = $password;
+
+    $_SESSION['login'] = $login;
+    $_SESSION['password'] = $password;
 
     #ищем не полные поля
     if($login == '' ){
         $error_login = 'не введён логин';
     } else {
-        session_unset();
+        
     }
     if($password == '' ){
         $error_password = 'не введён пароль';
     } else {
-        session_unset();
+        
     }
 
 
 $loginINPUT = filter_var(trim($_POST['login']), FILTER_SANITIZE_STRING);
 $passwordINPUT = filter_var(trim($_POST['password']), FILTER_SANITIZE_STRING);
-
+$passwordINPUT = md5($password."pswrdmd5");
+#Читаем базу данных
 $mysql = new mysqli('localhost' , 'mysql' , 'mysql' , 'reg');
 $result = $mysql -> query ("SELECT * FROM `users` WHERE `login` = '$loginINPUT' AND `password` = '$passwordINPUT' ");
 $user = $result -> fetch_assoc();
 
 if(count($user) != 0){
-header("Location: main.php");
+header ("Location: main.php");
 } else{
     $error_login = 'Неверный логин';
     $error_password = 'Неверный пароль';
@@ -41,7 +45,8 @@ header("Location: main.php");
 
 
 
-$mysql -> close();
+$mysql -> close(); #закрвыаем  бд
+
 
 
 ?>
@@ -49,9 +54,15 @@ $mysql -> close();
 <head lang=ru>
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/regstyle.css">
+<link rel="stylesheet" href="css/preloader.css">
+<title>welcome</title>
 <script src="js/script.js"></script>
-    </head>
+ </head>
     <body >
+    <!--Предзагрузчик с анимацией-->
+    <div id="page-preloader" class="preloader">
+<div class="loader"></div>
+</div>
 <div class="maincontainer">
     <div class="card">
         <form class="form" method="POST" action="">
@@ -67,5 +78,6 @@ $mysql -> close();
         <a href="reg.php" style ="color:#9942d7; font-size:180%; font-family: Arial, Helvetica, sans-serif;">Зарегистрироваться</a>
         </div>
 </div>
+
     </body>
     </html>
