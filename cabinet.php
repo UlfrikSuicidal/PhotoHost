@@ -11,21 +11,16 @@
     <div id="page-preloader" class="preloader">
         <div class="loader"></div>
     </div>
-
 <div class="header">
     <div class="header-inner">
-<?php
-require 'block/header.php';
-?>
-   
+        <?php
+        require 'block/header.php';
+        ?>
     </div>
 </div>
-<div class="main">
-<div class="photo">
+<div class="acc">
 <?php
-require 'draw.php';
+    require 'drawAcc.php';
 ?>
 </div>
-</div>     
-
 </body>
